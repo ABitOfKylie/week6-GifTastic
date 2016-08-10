@@ -1,0 +1,55 @@
+
+body{
+	background: url(acacia.jpeg);
+    background-size: 100%;
+
+}
+#form{
+	margin-right:20px;
+	font:22px;
+	font-weight: 900;
+	text-align: center;
+	margin-right:15px;
+	background-image: url(savannah.jpeg);
+	width:175px;
+	float:right;
+}
+
+input{
+	font-size: 15px;
+	width:140px;
+	margin-bottom: 5px;
+	background-color: linen;
+}
+button{
+  padding: 5px 12px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 6px #999;
+  background: #3e547a;
+  margin-right: 5px;
+ 
+    
+}
+button:hover {
+background: #e8c48b;
+}
+button:active {
+  background-color: #c59771;
+  box-shadow: 0 5px #403b28;
+  transform: translateY(10px);
+  
+}
+p{
+	font-weight: 900;
+	text-align: center;
+	margin-top: 15px;
+	background: linen;
+}
+.gifSpace{
+	display: inline-table;
+}

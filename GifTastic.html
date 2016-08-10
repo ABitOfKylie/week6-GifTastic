@@ -1,0 +1,115 @@
+<<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GifTastic</title>
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="assets/reset.css"/>
+    <link type="text/css" rel="stylesheet" href="assets/style.css"/>
+</head>
+
+<body>
+    <div id="buttonSpace"></div>
+    <div id="form">
+        <form>
+            <label>Choose an Animal</label>
+            <input type = "text" name = "animal">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div id="gifsHere"></div>
+    
+    <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            console.log( "ready!" );
+   
+        var topics =["Elephant", "Zebra", "Rhinoceros", "Monkey", "Tiger", "Lion"]; 
+        for (var i = 0; i < topics.length; i++) {
+            var button = $("<button class='newAnimal'>"); 
+            button.attr("data-animal", topics[i]);  // button.attr("name",topics[i]);
+            button.text(topics[i]); // name of animal on button
+            $("#buttonSpace").append(button);
+            console.log (topics [i]);
+            }
+        // $('submit').on('click') funtion(){
+        //     var button = $("<button class='newAnimal'>"); 
+        //     button.attr("data-animal", topics[i]);  // button.attr("name",topics[i]);
+        //     button.text(topics[i]); // name of animal on button?
+        //     $("#buttonSpace").append(button);
+        //     return false;
+        // }
+
+        $('button').on('click', function() {
+        var animal = $(this).data("animal");
+         // pull name of animal from button clicked
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=dc6zaTOxFJmzC&limit=10"; // do search using variable 'animal'
+
+            $.ajax({url: queryURL, method: 'GET'})
+
+            .done(function(response) {
+                console.log(response);
+                console.log(queryURL);
+
+            var results = response.data;
+            
+            for (var i = 0; i < results.length; i++) {
+            
+                var animalDiv = $('<div class=gifSpace>'); //create a space
+                var p = $('<p>').text("Rating: " + results[i].rating);//create a p w/rating 
+                console.log(results[i].rating);
+                var animalImage = $('<img>'); //create a img space for gif
+            
+                animalImage.attr('src', results[i].images.fixed_height.url); //gif url to var
+                animalImage.attr('data-animate', results[i].images.fixed_height.url); //gif url to var
+                animalImage.attr('data-still', results[i].images.fixed_height.url); //gif url to var
+                animalImage.attr('data-state', 'still'); //gif url to var
+                
+                console.log(animalImage);
+                animalDiv.append(p); //add p rating text 
+                animalDiv.append(animalImage);// add gif
+                $('#gifsHere').prepend(animalDiv); // add animaldiv in front/at the beginning                      
+
+            }
+        });//end of button click
+     }); //end of doc ready
+// //     Difference betwn the giphy/animated url ends in .gif while the still url ends in_s.gif
+//                    var str = animalImage; // can't pull animalImage outside button function 59
+//                    var first = str.slice(0, str.length -4);
+//                    var second = str.slice (-4);
+//                    var still = (first + "_s" + second);
+//                    console.log(still);
+                
+//                 $('animalDiv').on('click', function(e) {
+                    
+//                     var animate = $(this).attr('data-animate');
+
+//                 if(state === 'still') {      // assuming  'state is in the url like activity'
+//                     $(this).attr('src', animate); 
+//                     $(this).attr('data-state', 'animate');
+
+//                 } else {
+
+//                     $(this).attr('src', still);
+//                     $(this).attr('data-state', 'still');
+
+//                 }
+                 
+//               //   two variables 
+
+//             });
+//                 //$(":submit").live('click', function() {
+//                 //alert($(this).val());
+
+          });   
+          //on click button function close
+        
+    
+
+</script>
+</body>
+</html>
+
