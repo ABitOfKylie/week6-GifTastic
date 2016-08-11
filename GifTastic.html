@@ -32,8 +32,11 @@
             function arrbtn(){
             var topics =["Elephant", "Zebra", "Rhinoceros", "Monkey", "Tiger", "Lion"]; 
         if(topics.length >= 15){
-            alert("Whoa! Time to start a new safari!");
-            topics [];
+            alert("Whoa! Time to start a new safari! Click on 'New Safari' to start again!");
+            //topics []; // does not clear array, creates new and changes the pointer
+
+            $("<button>").addClass('1st.text').text("New Safari");
+             return false;
         }
         else{
         for (var i = 0; i < topics.length; i++) {
