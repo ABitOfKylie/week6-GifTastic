@@ -72,41 +72,47 @@
             }); //end of done function
        });//end of button click
 
-            // Make new button (from input line 19 - id newAnimal)
-                $("#newAnimal").click(function(){
-                    event.preventDefault(); // don't want click submit to refresh page, 
+            // Make new button (from input line 19 - id newAnimal) Problem 75-87
+                $("input").click(function(){
+                    //event.preventDefault(); // don't want click submit to refresh page, 
                     var animal = $("#newAnimal").val();
-                    // var still = results.images.fixed_height_still.url;
-                    // var animate = results.images.fixed_height.url;
+                if (animal!== null &&  $.inArray('animal', topics) == -1 ){
                     var newB = $("<button>");
                     newB.text(animal);
-                    newB.attr('src',response.data.images.fixed_height_still.url);
-                    newB.attr('data-state', 'still');
                     $("#buttonSpace").append(newB);
                     console.log (animal);
+                    topics.push("animal"); 
+                    event.preventDefault();
+                    } // don't want click submit to refresh page, 
+                else{
+                    alert("Mind your P's and Q's, we await your proper response");
+                }
                 });
 
-                //following is flip still/animate function
-                $(".gifClass").on('click', function(event){
-                    var state = $(this).attr('data-state');
-                    console.log(state);
-                if(state === 'still'){
-                    $(this).attr('src',$(this).data('animate'));
-                    $(this).attr('data-state','animate');
-                }
-                else{
-                    $(this).attr('src', $(this).data('still'));
-                    $(this).attr('data-state','still');
-                }
-                  }); //end of animalDiv click function
+                // //following is flip still/animate function  Problem 89-101
+                // $(".gifClass").on('click', function(event){
+                //     var state = $(this).attr('data-state');
+                //     console.log(state);
+                // if(state === 'still'){
+                //     $(this).attr('src',$(this).data('animate'));
+                //     $(this).attr('data-state','animate');
+                // }
+                // else{
+                //     $(this).attr('src', $(this).data('still'));
+                //     $(this).attr('data-state','still');
+                // }
+                //   }); //end of animalDiv click function
 
             //}); //end of function event
             //var animate = results.images.fixed_height.url
             //var still =   results.images.fixed_height_still.url
 
     }); //end of doc ready  
-     
-// //     Difference betwn the giphy/animated url ends in .gif while the still url ends in_s.gif
+
+
+// //     
+// Example of slicing--- practice -
+//Difference betwn the giphy/animated url ends in .gif while the still url ends in_s.gif
 //                    var str = animalImage; // can't pull animalImage outside button function 59
 //                    var first = str.slice(0, str.length -4);
 //                    var second = str.slice (-4);
@@ -127,8 +133,12 @@
 //                     $(this).attr('data-state', 'still');
 
 //                 }
-                 
+                 //Storage closet: may use later
 //               //   two variables 
+                    // var still = results.images.fixed_height_still.url;
+                    // var animate = results.images.fixed_height.url;
+                    //newB.attr('src', response.data.images.fixed_height_still.url);
+                    //newB.attr('data-state', 'still');
 
 //             });
 //                 //$(":submit").live('click', function() {
@@ -137,9 +147,9 @@
         
           //on click button function close
         
-    
-
-</script>
+       </script>
 </body>
-</html>
+</html>  
+
+
 
