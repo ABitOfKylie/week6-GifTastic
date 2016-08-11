@@ -27,7 +27,15 @@
             
         $( document ).ready(function() {
             console.log( "ready!" );
-        var topics =["Elephant", "Zebra", "Rhinoceros", "Monkey", "Tiger", "Lion"]; 
+            arrbtn();
+
+            function arrbtn(){
+            var topics =["Elephant", "Zebra", "Rhinoceros", "Monkey", "Tiger", "Lion"]; 
+        if(topics.length >= 15){
+            alert("Whoa! Time to start a new safari!");
+            topics [];
+        }
+        else{
         for (var i = 0; i < topics.length; i++) {
             var button = $("<button>"); 
             button.attr("data-animal", topics[i]);  // button.attr("name",topics[i]);
@@ -35,7 +43,8 @@
             $("#buttonSpace").append(button);
             console.log (topics [i]);
             }
-    
+        }
+     }   
 
         $('button').on('click', function() {
         var animal = $(this).data("animal");
@@ -76,13 +85,14 @@
                 $("input").click(function(){
                     //event.preventDefault(); // don't want click submit to refresh page, 
                     var animal = $("#newAnimal").val();
-                if (animal!== null &&  $.inArray('animal', topics) == -1 ){
+                if (animal!== "" /*&&  $.inArray('animal', topics) == -1 */){
                     var newB = $("<button>");
                     newB.text(animal);
                     $("#buttonSpace").append(newB);
                     console.log (animal);
                     topics.push("animal"); 
                     event.preventDefault();
+                    arrbtn();
                     } // don't want click submit to refresh page, 
                 else{
                     alert("Mind your P's and Q's, we await your proper response");
