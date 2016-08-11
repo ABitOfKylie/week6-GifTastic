@@ -16,7 +16,7 @@
     <div id="form">
         <form>
             <label>Choose an Animal</label>
-            <input type = "text" name = "animal">
+            <input type = "text" name = "animal" id="newAnimal">
             <input type="submit" value="Submit">
         </form>
     </div>
@@ -24,12 +24,12 @@
     
     <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
     <script type="text/javascript">
+            
         $( document ).ready(function() {
             console.log( "ready!" );
-   
         var topics =["Elephant", "Zebra", "Rhinoceros", "Monkey", "Tiger", "Lion"]; 
         for (var i = 0; i < topics.length; i++) {
-            var button = $("<button class='newAnimal'>"); 
+            var button = $("<button>"); 
             button.attr("data-animal", topics[i]);  // button.attr("name",topics[i]);
             button.text(topics[i]); // name of animal on button
             $("#buttonSpace").append(button);
@@ -55,7 +55,7 @@
                 console.log(queryURL);
 
             var results = response.data;
-            
+
             for (var i = 0; i < results.length; i++) {
             
                 var animalDiv = $('<div class=gifSpace>'); //create a space
@@ -63,19 +63,54 @@
                 console.log(results[i].rating);
                 var animalImage = $('<img>'); //create a img space for gif
             
-                animalImage.attr('src', results[i].images.fixed_height.url); //gif url to var
+                animalImage.attr('src', results[i].images.fixed_height_still.url); //gif url to var
                 animalImage.attr('data-animate', results[i].images.fixed_height.url); //gif url to var
-                animalImage.attr('data-still', results[i].images.fixed_height.url); //gif url to var
+                animalImage.attr('data-still', results[i].images.fixed_height_still.url); //gif url to var
                 animalImage.attr('data-state', 'still'); //gif url to var
                 
                 console.log(animalImage);
                 animalDiv.append(p); //add p rating text 
                 animalDiv.append(animalImage);// add gif
+                $("animalDiv").addClass("animalDisplay");
                 $('#gifsHere').prepend(animalDiv); // add animaldiv in front/at the beginning                      
 
-            }
-        });//end of button click
-     }); //end of doc ready
+                }; //end of for loop
+            }); //end of done function
+       });//end of button click
+
+            // Make new button (from input line 19 - id newAnimal)
+                $("#newAnimal").click(function(){
+                    var name = $("#newAnimal").val();
+                    // var still = results.images.fixed_height_still.url;
+                    // var animate = results.images.fixed_height.url;
+                    var newB = $("<button>");
+                    newB.text(name);
+                    newB.attr('src',results.images.fixed_height_still.url);
+                    newB.attr('data-state', 'still');
+                    $("#buttonSpace").append(newB);
+                    console.log (name);
+                });
+
+                //following is flip still/animate function
+                $(".gifClass").on('click', function(event){
+                    var state = $(this).attr('data-state');
+                    console.log(state);
+                if(state === 'still'){
+                    $(this).attr('src',$(this).data('animate'));
+                    $(this).attr('data-state','animate');
+                }
+                else{
+                    $(this).attr('src', $(this).data('still'));
+                    $(this).attr('data-state','still');
+                }
+                  }); //end of animalDiv click function
+
+            //}); //end of function event
+            //var animate = results.images.fixed_height.url
+            //var still =   results.images.fixed_height_still.url
+
+    }); //end of doc ready  
+     
 // //     Difference betwn the giphy/animated url ends in .gif while the still url ends in_s.gif
 //                    var str = animalImage; // can't pull animalImage outside button function 59
 //                    var first = str.slice(0, str.length -4);
@@ -104,7 +139,7 @@
 //                 //$(":submit").live('click', function() {
 //                 //alert($(this).val());
 
-          });   
+        
           //on click button function close
         
     
