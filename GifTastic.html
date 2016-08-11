@@ -35,13 +35,7 @@
             $("#buttonSpace").append(button);
             console.log (topics [i]);
             }
-        // $('submit').on('click') funtion(){
-        //     var button = $("<button class='newAnimal'>"); 
-        //     button.attr("data-animal", topics[i]);  // button.attr("name",topics[i]);
-        //     button.text(topics[i]); // name of animal on button?
-        //     $("#buttonSpace").append(button);
-        //     return false;
-        // }
+    
 
         $('button').on('click', function() {
         var animal = $(this).data("animal");
@@ -80,15 +74,16 @@
 
             // Make new button (from input line 19 - id newAnimal)
                 $("#newAnimal").click(function(){
-                    var name = $("#newAnimal").val();
+                    event.preventDefault(); // don't want click submit to refresh page, 
+                    var animal = $("#newAnimal").val();
                     // var still = results.images.fixed_height_still.url;
                     // var animate = results.images.fixed_height.url;
                     var newB = $("<button>");
-                    newB.text(name);
-                    newB.attr('src',results.images.fixed_height_still.url);
+                    newB.text(animal);
+                    newB.attr('src',response.data.images.fixed_height_still.url);
                     newB.attr('data-state', 'still');
                     $("#buttonSpace").append(newB);
-                    console.log (name);
+                    console.log (animal);
                 });
 
                 //following is flip still/animate function
