@@ -3,18 +3,19 @@ $( document ).ready(function() {
     var topics =["Elephant", "Zebra", "Rhinoceros", "Monkey", "Tiger", "Lion"];
     console.log(topics);
     arrbtn();
-
+     $(document.body).on('click', '.clickable', function(){
     // if $("input"), then as soon as they click, creates blank button, however the if/else statement is not helping and nothing console.logs. .submit() not successful
-    $("input").click,(function(){
-        var animalNew= $(this).val();
+    $('#submit').on('click', function(){
+        var animalNew= $('#newAnimal').val();
         // if(animalNew!=" "){
-        console.log (animalNew);
-        newB = $("<button>").addClass('first').text(animalNew);
-        newB.attr(data-animal); 
+        console.log(animalNew);
+        newB = $('<button>').addClass('first').text(animalNew);
+        //newB.attr(data-animal, animalNew); 
         newB.attr(animalNew);
-        $("#buttonSpace").append(newB);
-        clickRoutine();
-        event.preventDefault();
+        $('#buttonSpace').append(newB);
+        fetchAnimals();
+
+        return false;
 
     });
     // else{
@@ -43,14 +44,20 @@ $( document ).ready(function() {
             var button = $("<button>"); 
             button.attr("data-animal", topics[i]);  // button.attr("name",topics[i]);
             button.text(topics[i]); // name of animal on button
+            button.addClass("clickable");
             $("#buttonSpace").append(button);
             console.log (topics [i]);
             }               
     }   
     //  lines 63 - 97 working button click routine
     
+    function fetchAnimals(animalName) {
+
+    }
+
     $('button').on("click", function() {
         var animal = $(this).data("animal");
+        fetchAnimals(animal);
          // pull name of animal from button clicked
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=dc6zaTOxFJmzC&limit=10"; // do search using variable 'animal'
 
@@ -62,7 +69,7 @@ $( document ).ready(function() {
 
         var results = response.data;
 
-        for (var i = 0; i < results.length; i++) {
+        for (var i = 0; i < results.length; i++) {  
         
             var animalDiv = $('<div class=gifSpace>'); //create a space
             var p = $('<p>').text("Rating: " + results[i].rating);//create a p w/rating 
@@ -72,7 +79,8 @@ $( document ).ready(function() {
             animalImage.attr('src', results[i].images.fixed_height_still.url); //gif url to var
             animalImage.attr('data-animate', results[i].images.fixed_height.url); //gif url to var
             animalImage.attr('data-still', results[i].images.fixed_height_still.url); //gif url to var
-            animalImage.attr('data-state', 'still'); //gif url to var
+            animalImage.attr('data-state', 'still'); 
+            animalImage.addClass("clickable");
             
             console.log(animalImage);
             animalDiv.append(p); //add p rating text 
@@ -83,6 +91,7 @@ $( document ).ready(function() {
             }; //end of for loop
         }); //end of done function
    });//end of button click
+}); //end of clickable
 
 
     // Make new button (from input line 19 - id newAnimal) Problem 75-87
@@ -102,20 +111,23 @@ $( document ).ready(function() {
         //     alert("Mind your P's and Q's, we await your proper response");
         // }
         // });
+       
 
         // //following is flip still/animate function  Problem 89-101
-        // $(".gifClass").on('click', function(event){
-        //     var state = $(this).attr('data-state');
-        //     console.log(state);
-        // if(state === 'still'){
-        //     $(this).attr('src',$(this).data('animate'));
-        //     $(this).attr('data-state','animate');
-        // }
-        // else{
-        //     $(this).attr('src', $(this).data('still'));
-        //     $(this).attr('data-state','still');
-        // }
-        //   }); //end of animalDiv click function
+        $(".gifClass").on('click', function(event){
+            var animate = response.data.images.fixed_height.url;
+            var still =   response.data.images.fixed_height_still.url;
+            var state = $(this).attr('data-state');
+            console.log(state);
+        if(state === 'still'){
+            $(this).attr('src',$(this).data('animate'));
+            $(this).attr('data-state','animate');
+        }
+        else{
+            $(this).attr('src', $(this).data('still'));
+            $(this).attr('data-state','still');
+        }
+          }); //end of animalDiv click function
 
     //}); //end of function event
     //var animate = results.images.fixed_height.url
