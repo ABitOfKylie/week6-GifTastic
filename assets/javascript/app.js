@@ -21,12 +21,16 @@ $( document ).ready(function() {
      $(document.body).on('click', '.clickable', function(){
     // if $("input"), then as soon as they click, creates blank button, however the if/else statement is not helping and nothing console.logs. .submit() not successful
     $('#submit').on('click', function(event){
-        var animalNew= $('input').val();
+      
+        var animalNew= $('#newAnimal').val();
         // if(animalNew!=" "){
-        console.log(animalNew);
-        newB = $('<button>').addClass('clickable').text(animalNew);
+        //console.log(animalNew);
+        //animalNew.toUpperCase(); 
+        var newB = $('<button>').text(animalNew);
         newB.attr("data-state", "still"); 
         //newB.text('input').val();
+
+
         console.log (animalNew);
         $('#buttonSpace').append(newB);
         //fetchAnimals();
