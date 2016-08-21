@@ -32,6 +32,7 @@ button{
   box-shadow: 0 6px #999;
   background: #3e547a;
   margin-right: 5px;
+  margin-bottom: 12px;
  
     
 }
@@ -54,9 +55,13 @@ p{
 .gifSpace{
 	display: inline-table;
 	max-width:80%;
+
 }
 #gifsHere{
-	max-width:80%;
-	
-	
+	max-width:80%;	
+	float:left;
+}
+#buttonSpace{
+	max-width:77%;
+	float:left;
 }

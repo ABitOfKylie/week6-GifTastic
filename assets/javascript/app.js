@@ -1,57 +1,46 @@
 $( document ).ready(function() {
     console.log( "ready!" )
-    //var topics =["Elephant", "Zebra", "Rhinoceros", "Monkey", "Tiger", "Lion"];
-    //console.log(topics);
     arrbtn();
-       // lines 52 - 60 arrbtn function working
+
     function arrbtn(){
         var topics =["Elephant", "Zebra", "Rhinoceros", "Monkey", "Tiger", "Lion"];
         for (var i = 0; i < topics.length; i++) {
             var button = $("<button>").addClass("clickable"); //added class clickable, not sure
             button.attr("data-animal", topics[i]);  // button.attr("name",topics[i]);
             button.text(topics[i]); // name of animal on button
-            //button.addClass("clickable");
             $("#buttonSpace").append(button);
             console.log (topics [i]);
-
-            }    
-                      
-    }  
-   
-     $(document.body).on('click', '.clickable', function(){
-    // if $("input"), then as soon as they click, creates blank button, however the if/else statement is not helping and nothing console.logs. .submit() not successful
-    $('#submit').on('click', function(event){
-      
-        var animalNew= $('#newAnimal').val();
-        // if(animalNew!=" "){
-        //console.log(animalNew);
-        //animalNew.toUpperCase(); 
+            }                    
+        };     
+    
+   $('#submit').on('click', function(event){
+        if ($("#input")==null){
+        alert("Please enter animal name and try again!");
+        }
+        else{
+        var string= $('#newAnimal').val();
+        //$("#newAnimal").empty(); //clear 
+        var animalNew = (string.charAt(0).toUpperCase() + string.slice(1));
         var newB = $('<button>').text(animalNew);
         newB.attr("data-state", "still"); 
+        newB.attr("data-animal", animalNew);
         //newB.text('input').val();
-
-
         console.log (animalNew);
         $('#buttonSpace').append(newB);
-        //fetchAnimals();
-
+        //$("#newAnimal").val(""); ????*** want to clear input field BUT I can't lose the value - need for button,click-gif query
+        } //end of else statement
         return false;
 
     });
 
+        // function capitalizeFirstLetter(animalNew){
+        //     return animalNew.charAt(0).toUpperCase() + animalNew.slice(1);
+        // };
 
     
-    //function fetchAnimals(animalName) {
-
-       // }
-
-       
-    //}
-
     $('button').on("click", function() {
         var animal = $(this).data("animal");
-        //fetchAnimals(animal);
-         // pull name of animal from button clicked
+        
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=dc6zaTOxFJmzC&limit=10"; // do search using variable 'animal'
 
         $.ajax({url: queryURL, method: 'GET'})
@@ -84,6 +73,10 @@ $( document ).ready(function() {
             }; //end of for loop
         }); //end of done function
    });//end of button click
+
+
+    $(document.body).on('click', '.clickable', function(){
+
          // //following is flip still/animate function  Problem 89-101
         $(".gifClass").on('click', function(event){
             //var animate = response.data.images.fixed_height.url;
@@ -98,16 +91,8 @@ $( document ).ready(function() {
             $(this).attr('src', $(this).data('still'));
             $(this).attr('data-state','still');
         }
-          }); //end of animalDiv click function
-}); //end of clickable
-
-
-    
-       
-
-    //}); //end of function event
-    //var animate = results.images.fixed_height.url
-    //var still =   results.images.fixed_height_still.url
+          }); //end of gifClass click function
+    }); //end of clickable
 
 }); //end of doc ready  
 // at time of input.....
